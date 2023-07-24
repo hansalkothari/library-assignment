@@ -1,0 +1,292 @@
+<div class="header">
+    <ul class="navbar">
+        <li class="item">
+            <button mat-icon-button (click)="drawer.toggle()">
+                <mat-icon>menu</mat-icon>
+            </button>
+        </li>
+        <li class="item" routerLink="">Home</li>
+        <li class="item" routerLink="/home/about">About</li>
+
+    </ul>
+    <ul class="navbar">
+        <li class="item">
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>person_pin</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <div style="text-align: center; padding-left: 20px;padding-right: 20px; width: auto;" >
+                    <img style="width: 100%; height: 80px; padding-bottom: 10px;"
+                        src="https://www.svgrepo.com/download/5125/avatar.svg" alt="">
+                    <h4 style="font-weight: bold;">{{username.toUpperCase()}}</h4>
+                    <h4>{{email}}</h4>
+                </div>
+                <hr>
+                <button mat-menu-item (click)="logout()">
+                    <mat-icon>exit_to_app</mat-icon>
+                    <span>Logout</span>
+                </button>
+            </mat-menu>
+        </li>
+    </ul>
+</div>
+<mat-drawer-container class="example-container" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="side">
+        <mat-accordion>
+            <mat-expansion-panel hideToggle>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <mat-icon>dashboard</mat-icon>
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        DashBoard
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <button mat-raised-button routerLink="/home/dashboard">open dashboard</button>
+                <button mat-raised-button>last viewed articles</button>
+
+            </mat-expansion-panel>
+            <mat-expansion-panel hideToggle>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <mat-icon>add</mat-icon>
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Add a Book
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <button mat-raised-button (click)="openDialog()">
+                    Add a new Book
+                </button>
+            </mat-expansion-panel>
+            <mat-expansion-panel hideToggle>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <mat-icon>books</mat-icon>
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Genres
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <button mat-raised-button routerLink="/home/genres">
+                    Fiction and Non-Fiction
+                </button>
+                
+            </mat-expansion-panel>
+            <!--  -->
+            <mat-expansion-panel hideToggle>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <mat-icon>stars</mat-icon>
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        WishList
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <button mat-raised-button routerLink="/home/favorites">
+                        favorites
+                </button>
+            </mat-expansion-panel>
+            <mat-expansion-panel hideToggle>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <mat-icon>archives</mat-icon>
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Archives
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <button mat-raised-button routerLink="/home/archives">
+                    All Archived Articles
+                </button>
+            </mat-expansion-panel>
+            <mat-expansion-panel hideToggle>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <mat-icon>history</mat-icon>
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Recently Viewed Books
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <button mat-raised-button (click)="lastten()">
+                    Last 10 Mins
+                </button>
+                <br>
+                <button mat-raised-button (click)="lastone()">
+                    Last 1 hour
+                </button>
+                <br>
+                <button mat-raised-button (click)="lastfive()">
+                    Last 5 hours
+                </button>
+            </mat-expansion-panel>
+        </mat-accordion>
+
+    </mat-drawer>
+    
+    <!-- SHOWS ALL THE BOOKS -->
+    <ng-container *ngIf="showAllBooks">
+        <!-- <div>
+            <ng-container>
+                <table class="table table-responsive-lg table-dark table-hover">
+                    <thead>
+                        <tr>
+                            <th>
+                                <div class="d-flex align-items-center justify-content-between">
+                                    Book <button [matMenuTriggerFor]="dropdownMenu"
+                                        mat-icon-button><mat-icon>more_vert</mat-icon></button>
+                                </div>
+                                <mat-menu #dropdownMenu="matMenu">
+                                    <button mat-menu-item (click)="lth('name')">A to Z</button>
+                                    <button mat-menu-item (click)="htl('name')">Z to A</button>
+                                </mat-menu>
+                            </th>
+                            <th>
+                                <div class="d-flex align-items-center justify-content-between">
+                                    Author <button [matMenuTriggerFor]="dropdownMenu2"
+                                        mat-icon-button><mat-icon>more_vert</mat-icon></button>
+                                </div>
+                                <mat-menu #dropdownMenu2="matMenu">
+                                    <button mat-menu-item (click)="lth('author')">A to Z</button>
+                                    <button mat-menu-item (click)="htl('author')">Z to A</button>
+                                </mat-menu>
+                            </th>
+                            <th>
+                                <div class="d-flex align-items-center justify-content-between">
+                                    Genre <button [matMenuTriggerFor]="dropdownMenu3"
+                                        mat-icon-button><mat-icon>more_vert</mat-icon></button>
+                                </div>
+                                <mat-menu #dropdownMenu3="matMenu">
+                                    <button mat-menu-item (click)="lth('genre')">A to Z</button>
+                                    <button mat-menu-item (click)="htl('genre')">Z to A</button>
+                                </mat-menu>
+                            </th>
+                            <th>
+                                <div class="d-flex align-items-center justify-content-between">
+                                    Rating <button [matMenuTriggerFor]="dropdownMenu4"
+                                        mat-icon-button><mat-icon>more_vert</mat-icon></button>
+                                </div>
+                                <mat-menu #dropdownMenu4="matMenu">
+                                    <button mat-menu-item (click)="lth('rating')">rated low to high</button>
+                                    <button mat-menu-item (click)="htl('rating')">rated high to low</button>
+                                </mat-menu>
+                            </th>
+                            <th>
+                                <div class="d-flex align-items-center justify-content-between">
+                                    Price <button [matMenuTriggerFor]="dropdownMenu5"
+                                        mat-icon-button><mat-icon>more_vert</mat-icon></button>
+                                </div>
+                                <mat-menu #dropdownMenu5="matMenu">
+                                    <button mat-menu-item (click)="lth('price')">priced low to high</button>
+                                    <button mat-menu-item (click)="htl('price')">priced high to low</button>
+                                </mat-menu>
+                            </th>
+                            <th class="align-middle">Add to favorites</th>
+                            <th class="align-middle">Archive</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let book of books; let i = index  ;trackBy: trackById" (click)="openBookDialog(book)"
+                            style="cursor: pointer;">
+                            <ng-container *ngIf="!book.archive">
+                                    <td>{{book.name}}</td>
+                                    <td>{{book.author}}</td>
+                                    <td>{{book.genre}}</td>
+                                    <td>{{book.rating}}</td>
+                                    <td>{{book.price}}</td>
+                                <td>
+                                    <button mat-icon-button (click)="addToFavorites(i)"
+                                        [ngStyle]="{'color' : (book.favorite? 'red' : 'white')}"><mat-icon>favorite</mat-icon></button>
+                                </td>
+                                <td>
+                                    <button mat-icon-button (click)="addToArchives(i)"
+                                        [ngStyle]="{'color' : (book.archive? 'blue' : 'white')}"><mat-icon>archive</mat-icon></button>
+                                </td>
+
+                            </ng-container>
+                        </tr>
+                    </tbody>
+                </table>
+            </ng-container>
+        </div> -->
+        <!-- table using material angular. -->
+        <!-- add filter functionality -->
+        
+        <table mat-table [dataSource] = "filteredData" class="mat-elevation-z8" style="margin-left: 10px;">
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>
+                    <div>
+                        <p>Name</p>
+                        <ng-container *ngIf="nameSort"><mat-icon (click)="htl('name')">keyboard_arrow_down</mat-icon></ng-container>
+                        <ng-container *ngIf="!nameSort"><mat-icon (click)="lth('name')">keyboard_arrow_up</mat-icon></ng-container>
+                    </div>
+                </th>
+                <td mat-cell *matCellDef="let element" (click)="openBookDialog(element)"> {{element.name}} </td>
+            </ng-container>
+            <ng-container matColumnDef="author">
+                <th mat-header-cell *matHeaderCellDef>
+                    <div>
+                        <p>author</p>
+                        <ng-container *ngIf="authorSort"><mat-icon (click)="htl('author')">keyboard_arrow_down</mat-icon></ng-container>
+                        <ng-container *ngIf="!authorSort"><mat-icon (click)="lth('author')">keyboard_arrow_up</mat-icon></ng-container>
+                    </div>
+                </th>
+                <td mat-cell *matCellDef="let element" (click)="openBookDialog(element)"> {{element.author}}</td>
+            </ng-container>
+            <ng-container matColumnDef="genre">
+                <th mat-header-cell *matHeaderCellDef>
+                    <div>
+                        <p>genre</p>
+                        <ng-container *ngIf="genreSort"><mat-icon (click)="htl('genre')">keyboard_arrow_down</mat-icon></ng-container>
+                        <ng-container *ngIf="!genreSort"><mat-icon (click)="lth('genre')">keyboard_arrow_up</mat-icon></ng-container>
+                    </div>
+                </th>
+                <td mat-cell *matCellDef="let element" (click)="openBookDialog(element)"> {{element.genre}} </td>
+            </ng-container>
+            <ng-container matColumnDef="rating">
+                <th mat-header-cell *matHeaderCellDef> 
+                    <div>
+                        <p>rating</p>
+                        <ng-container *ngIf="ratingSort"><mat-icon (click)="htl('rating')">keyboard_arrow_down</mat-icon></ng-container>
+                        <ng-container *ngIf="!ratingSort"><mat-icon (click)="lth('rating')">keyboard_arrow_up</mat-icon></ng-container>
+                    </div>
+                </th>
+                <td mat-cell *matCellDef="let element" (click)="openBookDialog(element)"> {{element.rating}} </td>
+            </ng-container>
+            <ng-container matColumnDef="price">
+                <th mat-header-cell *matHeaderCellDef>
+                    <div>
+                        <p>price</p>
+                        <ng-container *ngIf="priceSort"><mat-icon (click)="htl('price')">keyboard_arrow_down</mat-icon></ng-container>
+                        <ng-container *ngIf="!priceSort"><mat-icon (click)="lth('price')">keyboard_arrow_up</mat-icon></ng-container>
+                    </div>
+                </th>
+                <td mat-cell *matCellDef="let element" (click)="openBookDialog(element)"> {{element.price}} </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="favorite">
+                <th mat-header-cell *matHeaderCellDef> Favorite </th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button (click)="element.favorite = !element.favorite" [ngStyle]="{'color' : (element.favorite? 'red' : 'black')}">
+                        <mat-icon>stars</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="archive">
+                <th mat-header-cell *matHeaderCellDef> Archive </th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button (click)="filterData(element)"
+                        [ngStyle]="{'color' : (element.archive? 'blue' : 'black')}"><mat-icon>archive</mat-icon></button>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns:displayedColumns"></tr>
+        </table>
+    </ng-container>
+    <ng-container>
+        <router-outlet></router-outlet>
+    </ng-container>
+
+
+</mat-drawer-container>

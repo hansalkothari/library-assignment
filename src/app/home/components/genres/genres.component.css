@@ -1,0 +1,20 @@
+mat-grid-tile{
+    background: whitesmoke;
+}
+
+.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.folder{
+    width: 100%;
+    height: 100%;
+    transition: background-color,height 0.3 ease-in;
+}
+.folder:hover, .img:hover{
+    background-color: whitesmoke;
+    height: 300px;
+    
+}

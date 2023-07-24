@@ -1,0 +1,69 @@
+<h2 mat-dialog-title>Add The Book</h2>
+<div mat-dialog-content >
+    <form [formGroup]="newBook" (ngSubmit)="submit()">
+        <mat-form-field style="width: 50%;">
+            <mat-label>
+                book's name
+            </mat-label>
+            <input placeholder="enter book name" matInput type="text" formControlName="name" name="name" />
+            <mat-error *ngIf="newBook.get('name').touched && name.errors?.['required']">
+                book's name is required.
+            </mat-error>
+        </mat-form-field>
+        
+        <mat-form-field style="width: 50%;">
+            <mat-label>
+                author's name
+            </mat-label>
+            <input placeholder="enter author's name" matInput type="text" formControlName="author" name="author" />
+            <mat-error *ngIf="newBook.get('author').touched && author.errors?.['required']">
+                book's name is required.
+            </mat-error>
+        </mat-form-field>
+        
+    
+    
+        <mat-form-field style="width: 50%;">
+            <mat-label>
+                genre
+            </mat-label>
+            <mat-select name="genre" formControlName="genre">
+                <mat-option *ngFor="let genre of fictionGenres" [value]="genre">
+                    {{genre}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="newBook.get('genre').touched && genre.errors?.['required']">
+                genre is required.
+            </mat-error>
+        </mat-form-field>
+        
+        <mat-form-field style="width: 50%;">
+            <mat-label>
+                ratings
+            </mat-label>
+            <input pattern="^\d+(\.\d{1,2})?$" placeholder="ratings" matInput type="text" formControlName="rating" name="rating" />
+            <mat-error *ngIf="newBook.get('rating').touched && rating.errors?.['required'] ">
+                ratings is required.
+            </mat-error>
+        </mat-form-field>
+        
+        <mat-form-field style="width: 50%;">
+            <mat-label>
+                price
+            </mat-label>
+            <input pattern="^\d+(\.\d{1,2})?$" placeholder="price" matInput type="text" formControlName="price" name="price" />
+            <mat-error *ngIf="newBook.get('price').touched && price.errors?.['required']">
+                price is required.
+            </mat-error>
+        </mat-form-field>
+        
+
+        <div style="display: flex; justify-content: space-around; margin-top: 40px;">
+            <button mat-raised-button style="background-color:white;color: black; font-size: large;" (click) = "onClick()" >Close</button>
+            <button mat-raised-button style="background-color: green; color: white; font-size: large;" type="submit" >submit</button>
+        </div>
+        
+    </form>
+</div>
+
+    

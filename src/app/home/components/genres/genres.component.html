@@ -1,0 +1,47 @@
+<!-- fiction and non-fiction genre card -->
+<!-- 
+<div>
+    <mat-card style="color: white;">
+        <mat-card-header>
+            <mat-card-title>Genres</mat-card-title>
+            <mat-card-subtitle>Choose from the below genres</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+
+            <div class="d-flex flex-wrap" >
+                <div class="m-2" *ngFor="let key of getObjectKeys(nonfictionGenres)">
+                    <button mat-raised-button style="color: black;" (click)="toggleValue(key,nonfictionGenres)">
+                        [ngStyle]="{ 'background-color': nonfictionGenres[key] ? colors[getObjectKeys(nonfictionGenres).indexOf(key) % colors.length] : 'white' }"
+                        {{key }}</button>
+                </div>
+            </div>
+            <div class="d-flex flex-wrap">
+                <div class="m-2" *ngFor="let key of getObjectKeys(fictionGenres)">
+                    <button mat-raised-button style="color: black;" (click)="toggleValue(key,fictionGenres)">
+                        [ngStyle]="{ 'background-color': fictionGenres[key] ? colors[getObjectKeys(fictionGenres).indexOf(key) % colors.length] : 'white' }">
+                        {{key }}</button>
+                </div>
+            </div>
+            <mat-card-actions>
+                <div class="d-flex justify-content-end">
+                    <button mat-raised-button color="accent" (click)="showBooks()"> View Books</button>
+                </div>
+            </mat-card-actions>
+        </mat-card-content>
+    </mat-card>
+</div> -->
+
+<mat-grid-list  [cols]="6"  >
+    <mat-grid-tile *ngFor="let key of getObjectKeys(fictionGenres)">
+        <div  (dblclick)="showBooks(key)">
+            <mat-card class="folder">
+                <!-- <mat-card-title>{{key}}</mat-card-title> -->
+                <mat-card-content>
+                    <img class="center" style="height: 200px; z-index: -1;" src="https://static.vecteezy.com/system/resources/previews/000/439/792/original/vector-folder-icon.jpg" alt="">
+                    <div style="display: flex; justify-content: flex-end;"><img class="center" style="height: 50px; margin-top: -80px;  z-index: 999;" [src]="imageSrcs[key]" alt=""></div>
+                    <div class="center">{{key}}</div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </mat-grid-tile>
+</mat-grid-list>

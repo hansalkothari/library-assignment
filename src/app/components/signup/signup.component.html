@@ -1,0 +1,103 @@
+
+<div mat-card-avatar >
+    <div class="center"><h1>CREATE ACCOUNT!</h1></div>
+    <div class="center">
+        <img style="height: 140px;" src="https://www.svgrepo.com/download/5125/avatar.svg" alt="">
+    </div>
+</div>
+<div class="center">
+    <div class="form">
+        <form [formGroup] = "sign">
+            <div style="display: flex;">
+                <div style="width: 50%; padding-right: 10px;">
+                    <mat-form-field style="width: 100%;">
+                        <mat-icon matPrefix>person</mat-icon>
+                        <mat-label>Firstname</mat-label>
+                        <input matInput type="text" placeholder="enter firstname" name="firstname" formControlName="firstname">
+                        <mat-error *ngIf = "firstname.hasError('required')">
+                            firstname is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div style="width: 50%;">
+                    <mat-form-field  style="width: 100%;">
+                        <mat-label>Lastname</mat-label>
+                        <input matInput type="text" placeholder="enter last name" name="lastname" formControlName="lastname">
+                        <mat-error *ngIf = "lastname.hasError('required')">
+                            lastname is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            
+            <div >
+                <mat-form-field style="width: 100%;">
+                    <mat-icon matPrefix>email</mat-icon>
+                    <mat-label>E-mail</mat-label>
+                    <input matInput type="email"  placeholder="Ex: abc@gmail.com" name="email" formControlName="email">
+                    <mat-error *ngIf = "email.hasError('required')">
+                        email is <strong>required</strong>
+                    </mat-error>
+                    <mat-error *ngIf = "email.hasError('email')">
+                        email  <strong>invalid</strong>
+                    </mat-error>
+                    
+                </mat-form-field>
+            </div>
+            
+            
+            
+            <div>
+                <mat-form-field style="width: 100%;">
+                    <mat-icon matPrefix>password</mat-icon>
+                    <mat-label>Password</mat-label>
+                    <input matInput [type]="hidePassword ? 'password' : 'text' " placeholder="enter password" name="password" formControlName="password">
+                    <mat-icon matSuffix style="cursor: pointer;" (click)="hidePassword = !hidePassword">
+                        {{ hidePassword ? 'visibility_off' : 'visibility' }}
+                    </mat-icon>
+                    <mat-error *ngIf = "password.hasError('minLength')">
+                        password must be at-least<strong> 8 characters long.</strong>
+                    </mat-error>
+                    <mat-error *ngIf = "password.hasError('required')">
+                        password is <strong>required</strong>
+                    </mat-error>
+                    
+                </mat-form-field>
+            </div>
+            
+            
+            <div>
+                <mat-form-field style="width: 100%;">
+                    <mat-icon matPrefix>password</mat-icon>
+                    <mat-label>re-entered Password</mat-label>
+                    <input matInput [type]="hidePassword2 ? 'password' : 'text' " placeholder="confirm password" name="cnfpassword" formControlName="cnfpassword">
+                    <mat-icon matSuffix style="cursor: pointer;" (click)="hidePassword2 = !hidePassword2">
+                        {{ hidePassword2 ? 'visibility_off' : 'visibility' }}
+                    </mat-icon>
+                    <mat-error *ngIf = "cnfpassword.hasError('minLength')">
+                        password must be at-least<strong> 8 characters long.</strong>
+                    </mat-error>
+                    <mat-error *ngIf = "cnfpassword.hasError('required')">
+                        password is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            
+            <div style="height: 20px; color:red; text-align: center;" *ngIf = "sign.get('cnfpassword').touched && passwordMatchValidator(password,cnfpassword)['passwordMismatch'] == true">
+                password mismatch!
+            </div>
+            
+        </form>
+        <div >
+    
+            <button style="width: 100%; background-color: lightblue;margin-top: 5px;" type="submit" mat-raised-button (click)="onSubmit()" [disabled] = "passwordMatchValidator(password,cnfpassword)['mismatch'] || sign.invalid">
+                Register
+            </button>
+            <!-- <button class="btn btn-primary col-12" (click)="onSubmit()">
+                Register
+            </button> -->
+        </div>
+        
+    </div>
+</div>

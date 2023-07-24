@@ -1,0 +1,41 @@
+<!--------------------------TABLE USING MATERIAL ANGULAR------------------------>
+<table mat-table [dataSource] = "dataSource" class="mat-elevation-z8" (matSortChange)="announceSortChange($event)" matSort>
+    <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="sort by name"> Name </th>
+        <td mat-cell *matCellDef="let element" (click)="openDialog(element)"> {{element.name}} </td>
+    </ng-container>
+    <ng-container matColumnDef="author">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="sort by author"> Author </th>
+        <td mat-cell *matCellDef="let element" (click)="openDialog(element)"> {{element.author}}</td>
+    </ng-container>
+    <ng-container matColumnDef="genre">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="sort by genre"> Genre </th>
+        <td mat-cell *matCellDef="let element" (click)="openDialog(element)"> {{element.genre}} </td>
+    </ng-container>
+    <ng-container matColumnDef="rating">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="sort by rating"> Rating </th>
+        <td mat-cell *matCellDef="let element" (click)="openDialog(element)"> {{element.rating}} </td>
+    </ng-container>
+    <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="sort by price"> Price </th>
+        <td mat-cell *matCellDef="let element" (click)="openDialog(element)"> {{element.price}} </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="favorite">
+        <th mat-header-cell *matHeaderCellDef> Favorite </th>
+        <td mat-cell *matCellDef="let element">
+            <button mat-icon-button (click)="element.favorite = !element.favorite" [ngStyle]="{'color' : (element.favorite? 'red' : 'black')}">
+                <mat-icon>stars</mat-icon>
+            </button>
+        </td>
+    </ng-container>
+    <ng-container matColumnDef="archive">
+        <th mat-header-cell *matHeaderCellDef> Archive </th>
+        <td mat-cell *matCellDef="let element">
+            <button mat-icon-button (click)="archiveData(element)"
+                [ngStyle]="{'color' : (element.archive? 'blue' : 'black')}"><mat-icon>archive</mat-icon></button>
+        </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns:displayedColumns"></tr>
+</table>

@@ -1,0 +1,82 @@
+.header {
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    height: 60px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    background-color: palegoldenrod;
+    color: black;
+    z-index: 999;
+  }
+  
+  .navbar {
+  
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+  
+  }
+  
+  .icon {
+    font-size: 25px;
+    padding-right: 15px;
+  
+  }
+  
+  .item {
+    text-align: center;
+    cursor: pointer;
+    margin-right: 30px;
+    width: 70px;
+    transition: all 5 ease-out;
+    border-radius: 14px;
+    font-size: larger;
+  }
+  
+  .item:hover {
+    font-size: larger;
+    text-decoration: underline;
+    /* color: yellow; */
+    /* background-color: darkslategrey; */
+  }
+  
+  .example-container {
+    position: fixed;
+    top: 55px;
+    width: 100%;
+    height: calc(60px + 100vh);
+    margin-top: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+  }
+  
+  .example-sidenav-content {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .example-sidenav {
+    padding: 20px;
+  }
+  
+  .mat-drawer-container::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .content{
+    color: white;
+    z-index: 99;
+  }
+  
+  .toggle{
+    background-color: white;
+    color: black;
+  }
+
+  th div{
+    display: flex;
+    justify-content: space-between;
+  }

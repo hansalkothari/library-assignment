@@ -1,0 +1,51 @@
+<div class="content">
+<div  class="form">
+        <div>
+            <h1>LOGIN TO YOUR ACCOUNT !!</h1>
+            <form [formGroup] = "form">
+                <div style="width: 100%;">
+                    <mat-form-field style="width: 100%;">
+                        <mat-label> Email </mat-label>
+                        <mat-icon matPrefix>email</mat-icon>
+                        <input matInput type="email" placeholder="Ex. pat@example.com" name="email" formControlName='email'>
+                        <mat-error *ngIf="email.hasError('required')">
+                            Email is <strong>required</strong>
+                        </mat-error>
+                        <mat-error *ngIf="email.hasError('email')">
+                            Please Enter Valid <strong>e-mail</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                
+                <div style="width: 100%;">
+                    <mat-form-field style="width: 100%;">
+                        <mat-label> Password </mat-label>
+                        <mat-icon matPrefix>password</mat-icon>
+                        <input matInput [type]="hidePassword? 'password' : 'text' " placeholder="Enter password" name="password" formControlName='password'>
+                        <mat-icon matSuffix (click)="hidePassword = !hidePassword">
+                            {{ hidePassword ? 'visibility_off' : 'visibility' }}
+                        </mat-icon>
+                        
+                        <mat-error *ngIf="password.hasError('required')">
+                            Password is <strong>required</strong>
+                        </mat-error>
+                        <mat-error *ngIf="email.hasError('minLength')">
+                            Password length should be <strong>at-least 8</strong>
+                        </mat-error>
+
+                    </mat-form-field>
+                    
+                </div>
+            <div style="display: flex; justify-content: space-between;">
+                <button mat-raised-button type="submit" color="accent" (click)="auth()" name="submit">Login</button>
+                <button mat-raised-button type="submit" (click)="register()">Register</button>
+            </div>
+            <mat-error *ngIf="submitted && !auth()">
+                <p>incorrect user details or unregistered user ..</p>
+            </mat-error> 
+            
+            
+            </form>
+        </div>
+    </div>
+</div>

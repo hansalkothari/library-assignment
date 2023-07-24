@@ -1,0 +1,121 @@
+<!-- SHOWS ALL THE BOOKS -->
+<!-- <div>
+    <ng-container *ngIf = "selectedGenre != '' ">
+        <table class="table table-responsive-lg table-dark table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        <div class="d-flex align-items-center justify-content-between">
+                            Book <button [matMenuTriggerFor]="dropdownMenu" mat-icon-button><mat-icon>more_vert</mat-icon></button>
+                        </div>
+                        <mat-menu #dropdownMenu="matMenu">
+                            <button mat-menu-item (click)="lth('name')">A to Z</button>
+                            <button mat-menu-item (click)="htl('name')">Z to A</button>
+                        </mat-menu>
+                    </th>
+                    <th>
+                        <div class="d-flex align-items-center justify-content-between">
+                            Author <button [matMenuTriggerFor]="dropdownMenu2"  mat-icon-button><mat-icon>more_vert</mat-icon></button>
+                        </div>
+                        <mat-menu #dropdownMenu2="matMenu">
+                            <button mat-menu-item (click)="lth('author')">A to Z</button>
+                            <button mat-menu-item (click)="htl('author')">Z to A</button>
+                        </mat-menu>
+                    </th>
+                    <th>
+                        <div class="d-flex align-items-center justify-content-between">
+                            Genre <button [matMenuTriggerFor]="dropdownMenu3"  mat-icon-button><mat-icon>more_vert</mat-icon></button>
+                        </div>
+                        <mat-menu #dropdownMenu3="matMenu">
+                            <button mat-menu-item (click)="lth('genre')">A to Z</button>
+                            <button mat-menu-item (click)="htl('genre')">Z to A</button>
+                        </mat-menu>
+                    </th>
+                    <th>
+                        <div class="d-flex align-items-center justify-content-between">
+                            Rating <button [matMenuTriggerFor]="dropdownMenu4" mat-icon-button><mat-icon>more_vert</mat-icon></button>
+                        </div>
+                        <mat-menu #dropdownMenu4="matMenu">
+                            <button mat-menu-item (click)="lth('rating')">rated low to high</button>
+                            <button mat-menu-item (click)="htl('rating')">rated high to low</button>
+                        </mat-menu>
+                    </th>
+                    <th>
+                        <div class="d-flex align-items-center justify-content-between">
+                            Price <button  [matMenuTriggerFor]="dropdownMenu5"  mat-icon-button><mat-icon>more_vert</mat-icon></button>
+                        </div>
+                        <mat-menu #dropdownMenu5="matMenu">
+                            <button mat-menu-item (click)="lth('price')">priced low to high</button>
+                            <button mat-menu-item (click)="htl('price')">priced high to low</button>
+                        </mat-menu>
+                    </th>
+                    <th class="align-middle">Add to favorites</th>
+                    <th class="align-middle">Archive</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor = "let book of books; let i = index" (click)="openDialog(book)" style="cursor: pointer;">
+                    <ng-container *ngIf="book.genre == selectedGenre  && book.archive == false">
+                        <ng-container >
+                            <td>{{book.name}}</td>
+                            <td>{{book.author}}</td>
+                            <td>{{book.genre}}</td>
+                            <td>{{book.rating}}</td>
+                            <td>{{book.price}}</td>
+                        </ng-container>
+                        <td>
+                            <button mat-icon-button (click)="addToFavorites(i)"
+                                [ngStyle]="{'color' : (book.favorite? 'red' : 'white')}"><mat-icon>favorite</mat-icon></button>
+                        </td>
+                        <td>
+                            <button mat-icon-button (click)="addToArchives(i)"
+                                [ngStyle]="{'color' : (book.archive? 'blue' : 'white')}"><mat-icon>archive</mat-icon></button>
+                        </td>
+    
+                    </ng-container>
+                </tr>
+            </tbody>
+        </table>
+    </ng-container>
+</div> -->
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" (matSortChange)="announceSortChange($event)" matSort>
+    <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="sort by name"> Name </th>
+        <td mat-cell *matCellDef="let element" (click)="openDialog(element)"> {{element.name}} </td>
+    </ng-container>
+    <ng-container matColumnDef="author">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="sort by author"> Author </th>
+        <td mat-cell *matCellDef="let element" (click)="openDialog(element)"> {{element.author}}</td>
+    </ng-container>
+    <ng-container matColumnDef="genre">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="sort by genre"> Genre </th>
+        <td mat-cell *matCellDef="let element" (click)="openDialog(element)"> {{element.genre}} </td>
+    </ng-container>
+    <ng-container matColumnDef="rating">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="sort by rating"> Rating </th>
+        <td mat-cell *matCellDef="let element" (click)="openDialog(element)"> {{element.rating}} </td>
+    </ng-container>
+    <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="sort by price"> Price </th>
+        <td mat-cell *matCellDef="let element" (click)="openDialog(element)"> {{element.price}} </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="favorite">
+        <th mat-header-cell *matHeaderCellDef> Favorite </th>
+        <td mat-cell *matCellDef="let element">
+            <button mat-icon-button (click)="element.favorite = !element.favorite" [ngStyle]="{'color' : (element.favorite? 'red' : 'black')}">
+                <mat-icon>stars</mat-icon>
+            </button>
+        </td>
+    </ng-container>
+    <ng-container matColumnDef="archive">
+        <th mat-header-cell *matHeaderCellDef> Archive </th>
+        <td mat-cell *matCellDef="let element">
+            <button mat-icon-button (click)="addToArchives(element)"
+                [ngStyle]="{'color' : (element.archive? 'blue' : 'black')}"><mat-icon>archive</mat-icon></button>
+        </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns:displayedColumns"></tr>
+</table>

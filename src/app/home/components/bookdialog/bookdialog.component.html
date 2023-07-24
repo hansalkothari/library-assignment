@@ -1,0 +1,28 @@
+<mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ book.name }}</mat-card-title>
+      <mat-card-subtitle>A ficional book written by {{book.author}}</mat-card-subtitle>
+    </mat-card-header>
+    <hr>
+    <mat-card-content>
+        <div >
+            <div style="display: flex; padding: 5px;">
+                <mat-icon >book</mat-icon><h3>   Genre : {{book.genre}}</h3>
+            </div>
+            <div style="display: flex; padding: 5px;">
+                <mat-icon >stars</mat-icon><h3>   Ratings : {{book.rating}}</h3>
+            </div>
+            <div style="display: flex; padding: 5px;">
+                <mat-icon >attach_money</mat-icon><h3>   Price : {{book.price}}</h3>
+            </div>
+            <ng-container *ngIf = "book.archive == true">
+                <h3 >This book has been added to archives..</h3>
+            </ng-container>
+        </div>
+        <mat-card-actions>
+            <div >
+                <button mat-button (click)="onClick()">close</button>
+            </div>
+        </mat-card-actions>
+    </mat-card-content>
+  </mat-card>
